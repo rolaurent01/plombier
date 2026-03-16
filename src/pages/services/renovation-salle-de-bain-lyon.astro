@@ -1,0 +1,57 @@
+---
+import ServicePageLayout from '../../layouts/ServicePageLayout.astro';
+
+const faqs = [
+  {
+    question: "Combien coûte une rénovation de salle de bain à Lyon ?",
+    answer: "Le budget dépend de l'ampleur du projet. Une rénovation partielle (remplacement de la douche ou de la baignoire, changement de robinetterie) démarre à partir de 2 000€. Une rénovation complète (plomberie, carrelage, meubles, sanitaires) se situe généralement entre 5 000€ et 15 000€ selon la surface et le niveau de finition. Nous établissons un devis détaillé gratuit après la visite conseil."
+  },
+  {
+    question: "Combien de temps durent les travaux ?",
+    answer: "Pour une rénovation complète de salle de bain, comptez en moyenne 5 à 10 jours ouvrés selon la complexité du chantier. Nous gérons la plomberie, les raccordements et la coordination avec les autres corps de métier si nécessaire (carreleur, électricien). Un planning précis vous est remis avant le début des travaux."
+  },
+  {
+    question: "Gérez-vous aussi le carrelage et l'électricité ?",
+    answer: "Oui, nous proposons une prestation clé en main : plomberie, pose des sanitaires, raccordements. Pour le carrelage et l'électricité, nous travaillons avec des artisans partenaires de confiance que nous coordonnons pour vous. Vous avez un interlocuteur unique du début à la fin."
+  },
+  {
+    question: "Peut-on remplacer une baignoire par une douche à l'italienne ?",
+    answer: "Absolument, c'est même l'une de nos demandes les plus fréquentes. Nous adaptons les arrivées et évacuations d'eau, créons le receveur encastré et posons la paroi. Le résultat est une douche moderne, accessible et facile d'entretien."
+  },
+  {
+    question: "Proposez-vous des solutions pour les personnes à mobilité réduite ?",
+    answer: "Oui, nous installons des douches de plain-pied, des barres d'appui, des sièges de douche et des WC surélevés. Nous connaissons les normes PMR et pouvons vous conseiller sur les aides financières disponibles (MaPrimeAdapt', Action Logement, etc.)."
+  }
+];
+---
+
+<ServicePageLayout
+  slug="renovation-salle-de-bain-lyon"
+  seoTitle="Rénovation Salle de Bain Lyon — Devis Gratuit | Plombier Lyon"
+  metaDescription="Rénovation de salle de bain à Lyon par ETS Roche, artisan plombier depuis +20 ans. Projet clé en main : douche, baignoire, sanitaires. Devis gratuit."
+  h1="Rénovation de salle de bain à Lyon — Votre projet clé en main"
+  subtitle="Depuis plus de 20 ans, nos spécialistes vous accompagnent dans votre projet de rénovation de salle de bain à Lyon et sa métropole. Un interlocuteur unique, du conseil à la réalisation."
+  problemTitle="Pourquoi rénover votre salle de bain ?"
+  problemText="Votre salle de bain est vieillissante, les joints noircissent, la robinetterie fuit, le carrelage se décolle ? Au-delà de l'esthétique, une salle de bain vétuste peut entraîner des problèmes d'humidité, de moisissures et de fuites cachées. Rénover votre salle de bain, c'est gagner en confort au quotidien, valoriser votre bien immobilier et prévenir les dégâts des eaux."
+  causesTitle="Les signes qu'il est temps de rénover"
+  causes={[
+    "Robinetterie qui fuit ou qui s'entartre malgré les réparations",
+    "Joints de carrelage noircis, moisissures sur les murs ou le plafond",
+    "Baignoire ou receveur de douche fissuré, émail abîmé",
+    "Canalisations anciennes qui provoquent des odeurs ou des écoulements lents",
+    "Envie de moderniser : remplacement baignoire par douche italienne, double vasque, meuble suspendu",
+    "Besoin d'adapter la salle de bain à une personne à mobilité réduite"
+  ]}
+  interventionTitle="Les étapes de votre rénovation"
+  steps={[
+    "Visite conseil gratuite : prise de mesures, analyse de l'existant, écoute de vos envies et contraintes",
+    "Proposition d'un projet personnalisé avec choix des équipements parmi nos partenaires fabricants français",
+    "Devis détaillé et transparent : fournitures, main-d'œuvre, délais — vous validez avant le début des travaux",
+    "Dépose soignée de l'ancienne salle de bain : sanitaires, plomberie, revêtements si nécessaire",
+    "Travaux de plomberie : adaptation des arrivées et évacuations d'eau, pose des nouveaux sanitaires et robinetterie",
+    "Finitions et mise en service : raccordements, tests d'étanchéité, nettoyage du chantier, remise des clés"
+  ]}
+  priceLabel="À partir de 2 000€"
+  priceNote="Rénovation partielle — Devis gratuit sur mesure pour votre projet"
+  faqs={faqs}
+/>

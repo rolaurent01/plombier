@@ -46,5 +46,13 @@
     "icon": "🛁",
     "priceFrom": 200,
     "keywords": ["installation chauffe eau lyon", "remplacement chauffe eau", "pose chauffe eau"]
+  },
+  {
+    "slug": "renovation-salle-de-bain-lyon",
+    "title": "Rénovation salle de bain",
+    "shortDescription": "Rénovation complète ou partielle de votre salle de bain. Projet clé en main : douche, baignoire, sanitaires, robinetterie.",
+    "icon": "🚿",
+    "priceFrom": 2000,
+    "keywords": ["rénovation salle de bain lyon", "salle de bain lyon", "douche italienne lyon", "remplacement baignoire"]
   }
 ]

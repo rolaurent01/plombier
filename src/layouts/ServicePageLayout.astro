@@ -6,6 +6,7 @@ import TestimonialCard from '../components/TestimonialCard.astro';
 import ServiceCard from '../components/ServiceCard.astro';
 import siteData from '../data/site-data.json';
 import services from '../data/services.json';
+import zones from '../data/zones.json';
 import testimonials from '../data/testimonials.json';
 import { generateFAQSchema } from '../utils/seo';
 
@@ -53,6 +54,52 @@ const testimonial = testimonials.find((t) => t.service === slug)
   || testimonials[0];
 
 const otherServices = services.filter((s) => s.slug !== slug);
+
+// Mapping service → zones pertinentes (3 zones proches du type d'intervention)
+const serviceZoneMap: Record<string, string[]> = {
+  'fuite-eau-lyon': ['plombier-lyon-3', 'plombier-lyon-6', 'plombier-villeurbanne'],
+  'debouchage-canalisation-lyon': ['plombier-lyon-1', 'plombier-lyon-7', 'plombier-bron'],
+  'reparation-chauffe-eau-lyon': ['plombier-lyon-8', 'plombier-lyon-2', 'plombier-caluire'],
+  'wc-bouche-lyon': ['plombier-lyon-4', 'plombier-lyon-9', 'plombier-venissieux'],
+  'recherche-fuite-lyon': ['plombier-lyon-5', 'plombier-lyon-3', 'plombier-decines'],
+  'installation-chauffe-eau-lyon': ['plombier-lyon-6', 'plombier-lyon-8', 'plombier-villeurbanne'],
+  'renovation-salle-de-bain-lyon': ['plombier-lyon-2', 'plombier-lyon-6', 'plombier-caluire'],
+};
+const relatedZones = (serviceZoneMap[slug] || ['plombier-lyon-3', 'plombier-lyon-6', 'plombier-villeurbanne'])
+  .map((s) => zones.find((z) => z.slug === s))
+  .filter((z): z is typeof zones[number] => z !== undefined);
+
+// Mapping service → articles blog pertinents
+const serviceBlogMap: Record<string, { slug: string; title: string }[]> = {
+  'fuite-eau-lyon': [
+    { slug: 'que-faire-fuite-eau', title: "Que faire en cas de fuite d'eau ?" },
+    { slug: 'comment-couper-eau-appartement', title: "Comment couper l'eau dans un appartement ?" },
+  ],
+  'debouchage-canalisation-lyon': [
+    { slug: 'comment-deboucher-evier', title: "Comment déboucher un évier ?" },
+    { slug: 'wc-bouche-que-faire', title: "WC bouché : que faire ?" },
+  ],
+  'reparation-chauffe-eau-lyon': [
+    { slug: 'pourquoi-chauffe-eau-fuit', title: "Pourquoi mon chauffe-eau fuit ?" },
+    { slug: 'que-faire-fuite-eau', title: "Que faire en cas de fuite d'eau ?" },
+  ],
+  'wc-bouche-lyon': [
+    { slug: 'wc-bouche-que-faire', title: "WC bouché : que faire ?" },
+    { slug: 'comment-deboucher-evier', title: "Comment déboucher un évier ?" },
+  ],
+  'recherche-fuite-lyon': [
+    { slug: 'que-faire-fuite-eau', title: "Que faire en cas de fuite d'eau ?" },
+    { slug: 'comment-couper-eau-appartement', title: "Comment couper l'eau dans un appartement ?" },
+  ],
+  'installation-chauffe-eau-lyon': [
+    { slug: 'pourquoi-chauffe-eau-fuit', title: "Pourquoi mon chauffe-eau fuit ?" },
+  ],
+  'renovation-salle-de-bain-lyon': [
+    { slug: 'que-faire-fuite-eau', title: "Que faire en cas de fuite d'eau ?" },
+    { slug: 'pourquoi-chauffe-eau-fuit', title: "Pourquoi mon chauffe-eau fuit ?" },
+  ],
+};
+const relatedArticles = serviceBlogMap[slug] || [];
 ---
 
 <BaseLayout
@@ -169,7 +216,51 @@ const otherServices = services.filter((s) => s.slug !== slug);
     </div>
   </section>
 
-  <!-- SECTION 8 — Autres services -->
+  <!-- SECTION 8 — Zones d'intervention -->
+  {relatedZones.length > 0 && (
+    <section class="section" id="zones-intervention">
+      <div class="container">
+        <div class="section-title fade-in">
+          <h2>Nos zones d'intervention</h2>
+          <p>Nous intervenons rapidement dans tout Lyon et sa métropole</p>
+        </div>
+        <div class="zone-links-grid fade-in">
+          {relatedZones.map((zone) => (
+            <a href={`/zones/${zone.slug}/`} class="zone-link-card card">
+              <h3>{zone.name}</h3>
+              <span class="zone-link-code">{zone.postalCode}</span>
+              <span class="zone-link-time">Intervention en {zone.tempsIntervention}</span>
+              <span class="zone-link-arrow">Voir la page &rarr;</span>
+            </a>
+          ))}
+        </div>
+        <p class="text-center fade-in" style="margin-top: var(--space-lg);">
+          <a href="/#zones" class="back-home-link">Voir toutes nos zones d'intervention</a>
+        </p>
+      </div>
+    </section>
+  )}
+
+  <!-- SECTION 9 — Articles associés -->
+  {relatedArticles.length > 0 && (
+    <section class="section section-alt" id="articles-associes">
+      <div class="container">
+        <div class="section-title fade-in">
+          <h2>Articles et guides utiles</h2>
+        </div>
+        <div class="blog-links fade-in">
+          {relatedArticles.map((article) => (
+            <a href={`/blog/${article.slug}/`} class="blog-link-item">
+              <span class="blog-link-title">{article.title}</span>
+              <span class="blog-link-arrow">Lire l'article &rarr;</span>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- SECTION 10 — Autres services -->
   <section class="section" id="autres-services">
     <div class="container">
       <div class="section-title fade-in">
@@ -398,6 +489,104 @@ const otherServices = services.filter((s) => s.slug !== slug);
   }
 
   .back-home-link:hover {
+    color: var(--color-accent);
+  }
+
+  /* --- Zone links --- */
+  .zone-links-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-lg);
+  }
+
+  @media (min-width: 640px) {
+    .zone-links-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  .zone-link-card {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+    text-decoration: none;
+    text-align: center;
+    padding: var(--space-xl) var(--space-lg);
+  }
+
+  .zone-link-card h3 {
+    font-size: var(--text-xl);
+    color: var(--color-primary);
+    margin-bottom: var(--space-xs);
+  }
+
+  .zone-link-code {
+    font-size: var(--text-sm);
+    color: var(--color-text-light);
+    font-weight: 500;
+  }
+
+  .zone-link-time {
+    font-size: var(--text-sm);
+    color: var(--color-accent-dark);
+    font-weight: 600;
+  }
+
+  .zone-link-arrow {
+    font-size: var(--text-sm);
+    color: var(--color-primary);
+    font-weight: 600;
+    margin-top: var(--space-sm);
+    transition: color var(--transition-fast);
+  }
+
+  .zone-link-card:hover .zone-link-arrow {
+    color: var(--color-accent);
+  }
+
+  /* --- Blog links --- */
+  .blog-links {
+    max-width: 700px;
+    margin-inline: auto;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+  }
+
+  .blog-link-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-md);
+    padding: var(--space-md) var(--space-lg);
+    background: #fff;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+    text-decoration: none;
+    transition: box-shadow var(--transition-fast), transform var(--transition-fast);
+    min-height: 48px;
+  }
+
+  .blog-link-item:hover {
+    box-shadow: var(--shadow-md);
+    transform: translateY(-2px);
+  }
+
+  .blog-link-title {
+    font-weight: 600;
+    color: var(--color-primary-dark);
+    font-size: var(--text-base);
+  }
+
+  .blog-link-arrow {
+    font-size: var(--text-sm);
+    color: var(--color-primary);
+    font-weight: 600;
+    white-space: nowrap;
+    transition: color var(--transition-fast);
+  }
+
+  .blog-link-item:hover .blog-link-arrow {
     color: var(--color-accent);
   }
 

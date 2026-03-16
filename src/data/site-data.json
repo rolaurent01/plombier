@@ -56,10 +56,12 @@
         { "label": "Réparation chauffe-eau", "href": "/services/reparation-chauffe-eau-lyon/" },
         { "label": "WC bouché", "href": "/services/wc-bouche-lyon/" },
         { "label": "Recherche de fuite", "href": "/services/recherche-fuite-lyon/" },
-        { "label": "Installation chauffe-eau", "href": "/services/installation-chauffe-eau-lyon/" }
+        { "label": "Installation chauffe-eau", "href": "/services/installation-chauffe-eau-lyon/" },
+        { "label": "Rénovation salle de bain", "href": "/services/renovation-salle-de-bain-lyon/" }
       ]},
       { "label": "Zones", "href": "/#zones" },
-      { "label": "Blog", "href": "/blog/" }
+      { "label": "Blog", "href": "/blog/" },
+      { "label": "Contact", "href": "/contact/" }
     ]
   },
   "existingUrls": {
