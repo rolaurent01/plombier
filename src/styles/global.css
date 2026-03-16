@@ -389,6 +389,13 @@ strong {
   color: var(--color-accent-dark);
 }
 
+/* --- MOBILE BOTTOM SPACING (floating CTA) --- */
+@media (max-width: 1023px) {
+  main {
+    padding-bottom: 80px;
+  }
+}
+
 /* --- SCROLL ANIMATIONS --- */
 @media (prefers-reduced-motion: no-preference) {
   .fade-in {

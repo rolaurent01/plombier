@@ -168,8 +168,14 @@ const otherZones = zones.filter(z => !z.slug.startsWith('plombier-lyon-'));
 
   .footer-zones {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: 1fr;
     gap: 0 var(--space-sm);
+  }
+
+  @media (min-width: 480px) {
+    .footer-zones {
+      grid-template-columns: repeat(3, 1fr);
+    }
   }
 
   .footer-bottom {
