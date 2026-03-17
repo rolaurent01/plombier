@@ -1,4 +1,6 @@
 ---
+import { ArrowRight } from '@lucide/astro';
+
 export interface Props {
   slug: string;
   title: string;
@@ -16,7 +18,7 @@ const { slug, title, excerpt, date } = Astro.props;
     <p class="blog-excerpt">{excerpt}</p>
     <span class="blog-link">
       Lire l'article
-      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+      <ArrowRight size={16} aria-hidden="true" />
     </span>
   </div>
 </a>
